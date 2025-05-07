@@ -1,5 +1,5 @@
 
-# Token Project
+# SecureHub Token Project
 
 This is a Hardhat project for deploying and managing Ethereum smart contracts.
 
