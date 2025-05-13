@@ -1,76 +1,113 @@
-
-#  Token Project
-
-This is a Hardhat project for deploying and managing Ethereum smart contracts.
-
-## Prerequisites
-
-Ensure you have the following installed:
-- Node.js (>= 14.x)
-- npm (comes with Node.js)
-
-## Setup
-
-1. Clone the repository to your local machine:
-   ```bash
-   git clone <repository_url>
-   ```
-
-2. Navigate to the project directory:
-   ```bash
-   cd <project_directory>
-   ```
-
-3. Install the dependencies:
-   ```bash
-   npm install
-   ```
-
-## Commands
-
-### Compile the Contracts
-To compile the smart contracts:
-```bash
-npx hardhat compile
-```
-
-### Deploy the Contracts
-To deploy the contracts:
-```bash
-npx hardhat run scripts/deploy.js
-```
-
-After deploying, copy the deployed contract addresses from the terminal output.
-
-### Update Backend `.env`
-Paste the deployed addresses into the backend's `.env` file. The `.env` file should look like this:
-```env
-TOKEN_CONTRACT_ADDRESS=<Deployed Token Contract Address>
-RS_CONTRACT_ADDRESS=<Deployed Real Estate Contract Address>
-```
-
-Example:
-```env
-TOKEN_CONTRACT_ADDRESS=0x5FbDB2315678afecb367f032d93F642f64180aa3
-RS_CONTRACT_ADDRESS=0xe7f1725E7734CE288F8367e1Bb143E90bb3F0512
-```
-
-## Directory Structure
-
-- `contracts/`: Contains the Solidity smart contract files.
-- `scripts/`: Deployment and utility scripts for the project.
-- `test/`: Test scripts for the contracts.
-- `hardhat.config.js`: Configuration file for Hardhat.
-
-## Important Notes
-
-- Ensure your `.env` file is correctly configured in the backend before running the application.
-- Use the same Hardhat network for deployment and backend interaction to ensure consistency.
-
-## Resources
-
-For more information about Hardhat, refer to the [official documentation](https://hardhat.org/docs).
+# PlotHub
 
 ---
 
-Happy coding! 🚀
+**PlotHub** is a decentralized property management platform that enables transparent registration, ownership transfer, and verification of real estate plots using blockchain technology. Built with Solidity and Hardhat, it leverages an ERC-20 token system for secure access control and verification.
+
+## Repository Structure
+
+- `contracts/`
+    - `RealTok.sol`: Smart contract managing plot registration and ownership.
+    - `SecureEstate.sol`: ERC-20 token used for access control and verification.
+- `scripts/`: Deployment and interaction scripts (if applicable).
+- `test/`: Unit tests (to be implemented).
+- `hardhat.config.js`: Hardhat configuration.
+
+---
+
+## Smart Contracts
+
+### 🔹 RealTok.sol
+
+A smart contract that manages:
+
+- **Plot Registration**: Adds metadata for plots like size, location, utility status, and ownership.
+- **Ownership Transfer**: Allows admin or current owner to transfer ownership securely.
+- **Data Access**: Restricts plot data visibility to verified token holders or the contract owner.
+- **Society Grouping**: Organizes plots under `societyId` for better management.
+- **Token-Based Access**: Uses `SecureEstate` ERC-20 token to verify users.
+
+### Key Functions:
+
+- `addPlot(...)`: Admin registers a new plot.
+- `transferPlotOwnership(...)`: Transfers ownership to another user.
+- `getPlotByIdVerified(...)`: Returns plot data for verified token holders.
+- `getPlotsBySocietyId(...)`: Fetch plots for a specific society.
+- `updateTokenContractAddress(...)`: Update the ERC-20 contract reference.
+
+---
+
+### 🔹 SecureEstate.sol
+
+An ERC-20 utility token contract with:
+
+- **Token Minting**: Admin mints new tokens.
+- **Token Transfer**: Users can send tokens or admins can force transfers.
+- **Access Control**: Plot data visibility in `RealTok` depends on token ownership.
+
+### Key Functions:
+
+- `mint(address, uint256)`: Owner-only minting.
+- `transferTokens(...)`: Transfers tokens with logging.
+- `adminTransfer(...)`: Owner can transfer tokens between accounts.
+- `hasTokens(address)`: Utility function to check token balance.
+
+---
+
+## Getting Started
+
+### Prerequisites
+
+- Node.js ≥ 16.x
+- Hardhat
+
+### Installation
+
+```bash
+git clone https://github.com/yourusername/plothub.git
+cd plothub
+npm install
+```
+
+### Compile Contracts
+
+```bash
+bash
+npx hardhat compile
+```
+
+### Deployment (Example)
+
+```bash
+bash
+npx hardhat run scripts/deploy.js --network localhost
+```
+
+---
+
+## Security
+
+- Plot ownership and sensitive access require either admin rights or token verification.
+- ERC-20 token interactions are logged via events for transparency.
+- All critical functions use `onlyOwner` from OpenZeppelin for role-based access control.
+
+---
+
+## Use Cases
+
+- Decentralized property registration platforms
+- Private housing societies
+- Real estate verification tools
+- Blockchain-based land registry systems
+
+---
+
+## License
+
+This project is licensed under the MIT License. See the `LICENSE` file for details.
+
+---
+
+## Author
+
+**PlotHub** is developed by [Your Name or Organization].
