@@ -64,7 +64,7 @@ An ERC-20 utility token contract with:
 ### Installation
 
 ```bash
-git clone https://github.com/yourusername/plothub.git
+git clone https://github.com/sheezanazeer98/plothub.git
 cd plothub
 npm install
 ```
