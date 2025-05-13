@@ -108,6 +108,3 @@ This project is licensed under the MIT License. See the `LICENSE` file for detai
 
 ---
 
-## Author
-
-**PlotHub** is developed by [Your Name or Organization].
